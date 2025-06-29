@@ -33,9 +33,15 @@
     color: black;
 }
 
-.link:hover{
-    color:#5ECE7B;
-    border-bottom: 2px solid #5ECE7B;
+
+.link:hover {
+  color: #5ECE7B;
+  border-bottom: 2px solid #5ECE7B;
+}
+
+.active {
+  color: #5ECE7B;
+  border-bottom: 2px solid #5ECE7B;
 }
 
 

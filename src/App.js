@@ -9,7 +9,11 @@ function App() {
   return (
   
       <Routes>
-        <Route path="/" element={<Layout/>} />
+        <Route path="/" element={<Layout/>}>
+          <Route path="women" />
+          <Route path="men" />
+          <Route path="kids" />
+        </Route>
       </Routes>
   );
 }
