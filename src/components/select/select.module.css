@@ -1,0 +1,73 @@
+.selectContainer {
+  position: relative;
+  display: inline-block;
+  font-family: sans-serif;
+  user-select: none;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  background: white;
+  cursor: pointer;
+  font-size: 23px;
+  border-radius: 4px;
+}
+
+.trigger:hover{
+    color: #5ECE7B;
+}
+
+.arrowDown{
+    height: fit-content;
+    display: flex;
+    align-items: center;
+}
+
+.arrowUp{
+  height: fit-content;
+   height: fit-content;
+    display: flex;
+    align-items: center;
+}
+
+.arrowDown svg {
+  width: 20px;
+  height: 20px;
+   transition: transform 0.2s ease-in-out;
+}
+
+.arrowUp svg {
+  width: 20px;
+  height: 20px;
+  transform: rotate(180deg);
+   transition: transform 0.2s ease-in-out;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  margin-top: 4px;
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  z-index: 100;
+  width: 100px;
+}
+
+.option {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.option:hover {
+  background-color: #f1f1f1;
+}
+
+.active {
+  background-color: #f1f1f1;
+}
