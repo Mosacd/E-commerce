@@ -2,13 +2,16 @@
 
 .container{
     width: 100%;
+    max-width: 1240px;
     height: 80px;
     background-color: white;
-    padding: 24px 100px 0px 100px;
+    margin: auto;
+    padding: 24px 0px 0px 0px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 2px solid rgb(231, 226, 226)
+    border-bottom: 2px solid rgb(231, 226, 226);
+    margin-bottom: 80px;
 }
 
 .linkSection{
@@ -83,3 +86,4 @@
     scale: 110%;
     transition-duration: 200ms;
 }
+
