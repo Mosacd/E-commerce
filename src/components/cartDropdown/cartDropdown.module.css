@@ -2,8 +2,7 @@
     width: 325px;
     background: white;
     border-radius: 8px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15); */
     position: absolute;
     right: 0;
     top: 40px;
