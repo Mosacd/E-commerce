@@ -1,0 +1,160 @@
+
+
+.container{
+    width: 100%;
+    max-width: 1240px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.switchImage{
+    width: 79px;
+    height: 80px;
+    border-radius: 5px;
+    transition: all;
+    transition-duration: 200ms;
+}
+
+.switchImage:hover{
+    transform: scale(1.1);
+    cursor:pointer;
+    border: 1px solid black;
+}
+
+.switchImageActive{
+    border: 1px solid black;
+    transform: scale(1.1);
+}
+
+.switchWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.mainImage{
+    width: 610px;
+    height: 511px;
+    border-radius: 10px;
+}
+
+.imageSection{
+    display: flex;
+    gap: 40px;
+}
+
+.rightSection{
+    max-width: 300px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.name{
+font-weight: 600;
+font-size: 30px;
+line-height: 27px;
+letter-spacing: 0%;
+vertical-align: middle;
+margin-bottom: 19px;
+}
+
+.type{
+font-weight: 400;
+font-size: 30px;
+line-height: 27px;
+letter-spacing: 0%;
+vertical-align: middle;
+margin-bottom: 40px;
+}
+
+.sizeText{
+font-family: Roboto Condensed;
+font-weight: 700;
+font-size: 18px;
+line-height: 18px;
+letter-spacing: 0%;
+text-align: center;
+vertical-align: middle;
+width: fit-content;
+margin-bottom: 10px;
+}
+
+.sizeBtn {
+    width: 63px;
+    height: 45px;
+    border: 1px solid #1D1F22;
+    background: white;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+font-weight: 400;
+font-size: 16px;
+line-height: 18px;
+letter-spacing: 5%;
+text-align: center;
+vertical-align: middle;
+
+}
+
+.sizeBtn:hover {
+    border-color: #333;
+}
+
+.sizeBtn.selected {
+    background: #333;
+    color: white;
+    border-color: #333;
+}
+
+.sizeButtonWrapper{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 120px;
+}
+
+.price{
+/* font-family: Raleway; */
+font-weight: 700;
+font-size: 24px;
+line-height: 18px;
+letter-spacing: 0%;
+vertical-align: middle;
+margin-bottom: 20px;
+}
+
+.addToCartButton {
+    width: 100%;
+    height: 52px;
+    padding: 16px 32px;
+    border: none;
+    background: #5ECE7B;
+    color: white;
+    /* font-family: Raleway; */
+cursor:pointer;
+font-weight: 600;
+font-size: 16px;
+line-height: 120%;
+letter-spacing: 0%;
+text-align: center;
+vertical-align: middle;
+text-transform: uppercase;
+transition: all 0.2s ease;
+margin-bottom: 40px;
+}
+
+.addToCartButton:hover {
+    background: #45a049;
+}
+
+.descritpion{
+font-family: Roboto;
+font-weight: 400;
+font-size: 16px;
+line-height: 160%;
+letter-spacing: 0%;
+}

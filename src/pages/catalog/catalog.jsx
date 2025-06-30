@@ -1,33 +1,31 @@
 import style from "./catalog.module.css";
 import { dummyData } from "../../dummyData/dummyData";
-import { useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Catalog = () => {
     
     let data = [];
-    let category = "kids";
+    const { category = "kids" } = useParams();
+    let categoryTitle = category.charAt(0).toUpperCase() + category.slice(1);
 
-   const location = useLocation();
 
-
-   if(location.pathname === "/men"){
-     data = dummyData.Men
-     category = "Men"
-   } else if(location.pathname === "/women"){
-         data = dummyData.Women
-          category = "Women"
-   } else {
-    data = dummyData.Kids
-   }
+    if (category === "men") {
+    data = dummyData.Men;
+  } else if (category === "women") {
+    data = dummyData.Women;
+  } else {
+    data = dummyData.Kids;
+  }
 
   return (
     <div className={style.container}>
-      <h1 className={style.title}>{category}</h1>
+      <h1 className={style.title}>{categoryTitle}</h1>
       <div className={style.catalogContainer}>
         {data.map((item, index) =>
           item.inStock ? (
+           <Link to={`/${category}/${item.id}`} key={item.id} className={style.linkwrapper}>
             <div key={index} className={style.item}>
-              <img src={item.img} alt="" />
+              <img src={item.img[0]} alt="" />
               <div className={style.descriptionContainer}>
                 <div className={style.cartlogo}>
                   <svg
@@ -55,6 +53,7 @@ const Catalog = () => {
                 <span className={style.price}>${item.price}</span>
               </div>
             </div>
+            </Link>
           ) : (
             <div key={index} className={style.itemOutOfStock}>
               <div style={{ position: "relative" }}>

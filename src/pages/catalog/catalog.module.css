@@ -111,3 +111,9 @@
   color: black;
   opacity: 100;
 }
+
+
+.linkwrapper{
+  text-decoration: none;
+  color: black;
+}

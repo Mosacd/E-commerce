@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Header from "./header/header";
-import Catalog from "../pages/catalog/catalog";
 import styles from './layout.module.css';
+import { Outlet } from 'react-router-dom';
 
 const Layout = () => {
     const [isCartOpen, setIsCartOpen] = useState(false);
@@ -11,7 +11,7 @@ const Layout = () => {
             <Header isCartOpen={isCartOpen} setIsCartOpen={setIsCartOpen} />
             <div className={styles.content}>
                 {isCartOpen && <div className={styles.overlay} />}
-                <Catalog />
+                <Outlet/>
             </div>
        </div>
     );
