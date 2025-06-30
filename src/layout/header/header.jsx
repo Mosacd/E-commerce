@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Select from "../../components/select/select";
 import img from "../../assets/Group.svg";
 import CartDropdown from "../../components/cartDropdown/cartDropdown";
-const Header = () => {
+const Header = ({ isCartOpen, setIsCartOpen }) => {
   return (
     <div className={style.container}>
       <div className={style.linkSection}>
@@ -40,7 +40,7 @@ const Header = () => {
 
       <div className={style.rightSection}>
         <Select />
-           <CartDropdown />
+           <CartDropdown isOpen={isCartOpen} setIsOpen={setIsCartOpen} />
       </div>
     </div>
   );

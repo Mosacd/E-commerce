@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from './cartDropdown.module.css';
 import apolo from "../../assets/items/apolo.png"
-const CartDropdown = () => {
+
+const CartDropdown = ({ isOpen, setIsOpen }) => {
     const [cartItems, setCartItems] = useState([
         {
             id: 1,
@@ -21,7 +22,6 @@ const CartDropdown = () => {
         }
     ]);
 
-    const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
     const updateQuantity = (id, newQuantity) => {
