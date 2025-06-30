@@ -48,22 +48,6 @@
 }
 
 
-.cart{
-    border:none;
-    background-color: transparent;
-    padding:5px;
-    cursor: pointer;
-    height: fit-content;
-    padding-bottom: 0px;
-}
-
-.cart svg{
-    fill:black;
-}
-
-.cart:hover svg{
-    fill:#5ECE7B;
-}
 
 .rightSection{
     display: flex;

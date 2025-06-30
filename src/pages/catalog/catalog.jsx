@@ -1,20 +1,33 @@
 import style from "./catalog.module.css";
-import apolo from "../../assets/apolo.png";
-
-const dummyData = [
-  { name: "Apollo Running Short", price: 50.0, img: apolo, inStock: true },
-  { name: "Apollo Running Short", price: 50.0, img: apolo, inStock: false },
-];
+import { dummyData } from "../../dummyData/dummyData";
+import { useLocation } from "react-router-dom";
 
 const Catalog = () => {
+    
+    let data = [];
+    let category = "kids";
+
+   const location = useLocation();
+
+
+   if(location.pathname === "/men"){
+     data = dummyData.Men
+     category = "Men"
+   } else if(location.pathname === "/women"){
+         data = dummyData.Women
+          category = "Women"
+   } else {
+    data = dummyData.Kids
+   }
+
   return (
     <div className={style.container}>
-      <h1 className={style.title}>Category name</h1>
+      <h1 className={style.title}>{category}</h1>
       <div className={style.catalogContainer}>
-        {dummyData.map((item) =>
+        {data.map((item, index) =>
           item.inStock ? (
-            <div className={style.item}>
-              <img src={apolo} alt="" />
+            <div key={index} className={style.item}>
+              <img src={item.img} alt="" />
               <div className={style.descriptionContainer}>
                 <div className={style.cartlogo}>
                   <svg
@@ -38,16 +51,15 @@ const Catalog = () => {
                     />
                   </svg>
                 </div>
-                <span className={style.description}>Apollo Running Short</span>
-                <span className={style.price}>$50.00</span>
+                <span className={style.description}>{item.name}</span>
+                <span className={style.price}>${item.price}</span>
               </div>
             </div>
           ) : (
-            <div className={style.itemOutOfStock}>
-                <div style={{position:"relative"}}>
-              <img src={apolo} alt="" />
-<span className={style.stockMessege}>                OUT OF STOCK
-              </span>
+            <div key={index} className={style.itemOutOfStock}>
+              <div style={{ position: "relative" }}>
+                <img src={item.img} alt="" />
+                <span className={style.stockMessege}> OUT OF STOCK</span>
               </div>
               <div className={style.descriptionContainer}>
                 <span className={style.description}>Apollo Running Short</span>
