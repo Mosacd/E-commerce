@@ -1,41 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import styles from './cartDropdown.module.css';
-import apolo from "../../assets/items/apolo.png"
+
 import { Link } from 'react-router-dom';
+import { useCartContext } from '../../context/cart/hooks/useCartContext';
 
 const CartDropdown = ({ isOpen, setIsOpen }) => {
-    const [cartItems, setCartItems] = useState([
-        {
-            id: 1,
-            name: 'Apollo Running Short',
-            price: 50.00,
-            size: 'S',
-            quantity: 1,
-            image: apolo
-        },
-        {
-            id: 2,
-            name: 'Jupiter Wayfarer',
-            price: 75.00,
-            size: 'S',
-            quantity: 2,
-            image: '/api/placeholder/80/80'
-        }
-    ]);
+  
+         const { cart, changeQuantity, changeSize } = useCartContext();
 
     const dropdownRef = useRef(null);
 
-    const updateQuantity = (id, newQuantity) => {
-        if (newQuantity === 0) {
-            setCartItems(cartItems.filter(item => item.id !== id));
-        } else {
-            setCartItems(cartItems.map(item => 
-                item.id === id ? { ...item, quantity: newQuantity } : item
-            ));
-        }
-    };
-
-    const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -56,6 +31,9 @@ const CartDropdown = ({ isOpen, setIsOpen }) => {
     return (
         <div style={{position:"relative"}} ref={dropdownRef}>
             <button onClick={() => setIsOpen(!isOpen)} className={styles.cart}>
+                <div className={cart.length ? styles.itemCount : styles.displaynone}>
+                    {cart.length}
+                </div>
                 <svg
                     width="25"
                     height="25"
@@ -72,21 +50,24 @@ const CartDropdown = ({ isOpen, setIsOpen }) => {
             {isOpen && (
                 <div className={styles.cartDropdown}>
             <div className={styles.header}>
-                <h3>My Bag, {cartItems.length} items</h3>
+                <h3>My Bag, {cart.length} items</h3>
             </div>
             
             <div className={styles.itemsList}>
-                {cartItems.map((item) => (
-                    <div key={item.id} className={styles.cartItem}>
+                {cart.filter((item) => item && item.quantity > 0).map((item) => (
+                    <div key={`${item.id}-${item.size}`} className={styles.cartItem}>
                         <div className={styles.itemDetails}>
                             <h4 className={styles.itemName}>{item.name}</h4>
-                            <div className={styles.itemPrice}>${item.price.toFixed(2)}</div>
+                            <div className={styles.itemPrice}>${Number(item.price).toFixed(2)}</div>
                             
                             <div className={styles.sizeSection}>
                                 <span className={styles.sizeLabel}>Size:</span>
                                 <div className={styles.sizeOptions}>
                                     {['XS', 'S', 'M', 'L'].map(size => (
-                                        <button 
+                                        <button
+                                        onClick={() => {
+                                            changeSize(item.id, item.size, size)
+                                        }}
                                             key={size}
                                             className={`${styles.sizeBtn} ${item.size === size ? styles.selected : ''}`}
                                         >
@@ -101,14 +82,14 @@ const CartDropdown = ({ isOpen, setIsOpen }) => {
                             <div className={styles.quantityControls}>
                                 <button 
                                     className={styles.quantityBtn}
-                                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                    onClick={() => changeQuantity(item.id,item.size, "increment")}
                                 >
                                     +
                                 </button>
                                 <span className={styles.quantity}>{item.quantity}</span>
                                 <button 
                                     className={styles.quantityBtn}
-                                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                    onClick={() => changeQuantity(item.id,item.size, "decrement")}
                                 >
                                     -
                                 </button>

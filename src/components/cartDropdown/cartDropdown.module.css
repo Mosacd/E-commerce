@@ -271,3 +271,25 @@ vertical-align: middle;
 .cart:hover svg{
     fill:#5ECE7B;
 }
+
+.itemCount{
+    position: absolute;
+    right: -3px;
+    top: -1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 19px;
+    height: 19px;
+    border-radius: 100%;
+    background-color: #1D1F22;
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.displaynone{
+    display: none;
+}

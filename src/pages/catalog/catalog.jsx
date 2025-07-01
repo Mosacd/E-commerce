@@ -1,9 +1,11 @@
 import style from "./catalog.module.css";
 import { dummyData } from "../../dummyData/dummyData";
 import { Link, useParams } from "react-router-dom";
+import { useCartContext } from "../../context/cart/hooks/useCartContext";
 
 const Catalog = () => {
-    
+
+    const {addToCart} = useCartContext();
     let data = [];
     const { category = "kids" } = useParams();
     let categoryTitle = category.charAt(0).toUpperCase() + category.slice(1);
@@ -27,7 +29,16 @@ const Catalog = () => {
             <div key={index} className={style.item}>
               <img className={style.img} src={item.img[0]} alt="" />
               <div className={style.descriptionContainer}>
-                <div className={style.cartlogo}>
+                <div onClick={(e) => {
+                  e.preventDefault() 
+                  addToCart({
+                    ...item,
+                    size: "S",
+                    quantity: 1,
+                    image: item.img,
+                  });
+                  console.log(item.id)
+                }} className={style.cartlogo}>
                   <svg
                     width="24"
                     height="24"
@@ -57,7 +68,7 @@ const Catalog = () => {
           ) : (
             <div key={index} className={style.itemOutOfStock}>
               <div style={{ position: "relative" }}>
-                <img className={style.img} src={item.img} alt="" />
+                <img className={style.img} src={item.img[0]} alt={item.name} />
                 <span className={style.stockMessege}> OUT OF STOCK</span>
               </div>
               <div className={style.descriptionContainer}>

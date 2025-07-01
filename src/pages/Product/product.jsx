@@ -2,15 +2,18 @@ import { useParams } from "react-router-dom";
 import { dummyData } from "../../dummyData/dummyData";
 import styles from "./product.module.css";
 import { useState } from "react";
+import { useCartContext } from "../../context/cart/hooks/useCartContext";
 
 const ProductPage = () => {
   const { category = "kids", productId } = useParams();
+
+  const {addToCart} = useCartContext() 
 
   const data = dummyData[category.charAt(0).toUpperCase() + category.slice(1)];
   const product = data?.find((item) => item.id === productId);
 
   const [image, setimage] = useState(product?.img[0]);
-  const [ItemSize, setItemSize] = useState();
+  const [itemSize, setItemSize] = useState(null);
 
   if (!product) return <div>Product not found</div>;
 
@@ -49,7 +52,7 @@ const ProductPage = () => {
                 }}
                 key={size}
                 className={`${styles.sizeBtn} ${
-                  ItemSize === size ? styles.selected : ""
+                  itemSize === size ? styles.selected : ""
                 }`}
               >
                 {size}
@@ -60,7 +63,14 @@ const ProductPage = () => {
         <div>
           <h4 className={styles.sizeText}>PRICE:</h4>
           <h4 className={styles.price}>$ {product.price}</h4>
-          <button className={styles.addToCartButton}>ADD TO CART</button>
+          <button onClick={() => {
+            addToCart({
+                    ...product,
+                    size: itemSize,
+                    quantity: 1,
+                    image: product.img,
+                  });
+          }} disabled={!itemSize} className={`${styles.addToCartButton} ${!itemSize && styles.disabledButton}`}>ADD TO CART</button>
           <p className={styles.descritpion}>{product.description}</p>
         </div>
       </div>

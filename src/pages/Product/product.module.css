@@ -151,6 +151,11 @@ transition: all 0.2s ease;
 margin-bottom: 40px;
 }
 
+.disabledButton{
+    opacity: 50%;
+    pointer-events: none;
+}
+
 .addToCartButton:hover {
     background: #45a049;
 }
