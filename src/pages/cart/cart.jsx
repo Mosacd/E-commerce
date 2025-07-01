@@ -20,8 +20,10 @@ const Cart = () => {
             size: 'S',
             quantity: 2,
             image: '/api/placeholder/80/80'
-        }
+        },
     ]);
+
+      const [ItemSize, setItemSize] = useState();
 
     const updateQuantity = (id, newQuantity) => {
         if (newQuantity === 0) {
@@ -44,28 +46,35 @@ const Cart = () => {
 
             <div className={styles.cartContent}>
             <div className={styles.header}>
-                <h3>My Bag, {cartItems.length} items</h3>
             </div>
             
             <div className={styles.itemsList}>
                 {cartItems.map((item) => (
                     <div key={item.id} className={styles.cartItem}>
                         <div className={styles.itemDetails}>
-                            <h4 className={styles.itemName}>{item.name}</h4>
+                             <h1 className={styles.itemName}>{item.name.split(" ")[0]}</h1>
+          <h1 className={styles.itemType}>
+            {item.name.split(" ")[1]} {item.name.split(" ")[2]}
+          </h1>
                             <div className={styles.itemPrice}>${item.price.toFixed(2)}</div>
                             
                             <div className={styles.sizeSection}>
-                                <span className={styles.sizeLabel}>Size:</span>
-                                <div className={styles.sizeOptions}>
-                                    {['XS', 'S', 'M', 'L'].map(size => (
-                                        <button 
-                                            key={size}
-                                            className={`${styles.sizeBtn} ${item.size === size ? styles.selected : ''}`}
-                                        >
-                                            {size}
-                                        </button>
-                                    ))}
-                                </div>
+                                <h4 className={styles.sizeText}>SIZE:</h4>
+          <div className={styles.sizeButtonWrapper}>
+            {["XS", "S", "M", "L"].map((size) => (
+              <button
+                onClick={() => {
+                  setItemSize(size);
+                }}
+                key={size}
+                className={`${styles.sizeBtn} ${
+                  ItemSize === size ? styles.selected : ""
+                }`}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
                             </div>
                         </div>
                         
@@ -96,17 +105,21 @@ const Cart = () => {
             </div>
             
             <div className={styles.footer}>
+                
+                  <div className={styles.totalQ}>
+                 <span className={styles.totalQuantityLabel}>Quantity:</span>
+                <span className={styles.totalAmount}>3</span>   
+                 </div>
                 <div className={styles.total}>
-                    <span className={styles.totalLabel}>Total</span>
+                    <span className={styles.totalLabel}>Total:</span>
                     <span className={styles.totalAmount}>${total.toFixed(2)}</span>
                 </div>
                 
-                <div className={styles.actions}>
-                   <Link className={styles.bagLink} to={"/cart"}> <button className={styles.viewBagBtn}>VIEW BAG</button></Link>
+             
                     <Link  className={styles.checkoutLink} to={"/"}>
-                    <button className={styles.checkoutBtn}>CHECK OUT</button>
+                    <button className={styles.checkoutBtn}>Continue</button>
                     </Link>
-                </div>
+               
             </div>
         </div>
             
