@@ -30,7 +30,13 @@
   flex-direction: column;
   justify-content: space-between;
   transition: all 200ms ease;
+   border-radius: 5px;
 }
+
+.img{
+   border-radius: 5px;
+}
+
 
 .itemOutOfStock {
   width: 386px;

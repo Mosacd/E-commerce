@@ -25,7 +25,7 @@ const Catalog = () => {
           item.inStock ? (
            <Link to={`/${category}/${item.id}`} key={item.id} className={style.linkwrapper}>
             <div key={index} className={style.item}>
-              <img src={item.img[0]} alt="" />
+              <img className={style.img} src={item.img[0]} alt="" />
               <div className={style.descriptionContainer}>
                 <div className={style.cartlogo}>
                   <svg
@@ -57,7 +57,7 @@ const Catalog = () => {
           ) : (
             <div key={index} className={style.itemOutOfStock}>
               <div style={{ position: "relative" }}>
-                <img src={item.img} alt="" />
+                <img className={style.img} src={item.img} alt="" />
                 <span className={style.stockMessege}> OUT OF STOCK</span>
               </div>
               <div className={style.descriptionContainer}>
