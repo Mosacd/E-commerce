@@ -14,12 +14,13 @@
     border-radius: 5px;
     transition: all;
     transition-duration: 200ms;
+    border: 1px solid rgb(192, 190, 190);
 }
 
 .switchImage:hover{
     transform: scale(1.1);
     cursor:pointer;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .switchImageActive{
@@ -37,6 +38,8 @@
     width: 610px;
     height: 511px;
     border-radius: 10px;
+     border: 1px solid rgb(192, 190, 190);
+     
 }
 
 .imageSection{
@@ -101,13 +104,14 @@ vertical-align: middle;
 }
 
 .sizeBtn:hover {
-    border-color: #333;
+     background-color: rgb(235, 231, 231);
+    /* color: white; */
 }
 
 .sizeBtn.selected {
-    background: #333;
+    background: #1D1F22;
     color: white;
-    border-color: #333;
+    border-color: #1D1F22;
 }
 
 .sizeButtonWrapper{
