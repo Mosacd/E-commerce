@@ -1,0 +1,20 @@
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.leftColumn {
+  flex-basis: 50%;
+  background-color: #ffffff;
+  margin-top: 35px;
+}
+.container{
+  margin-left: 165px;
+}
+
+.rightColumn {
+  flex-basis: 50%;
+  background-color: #F2F2F2;
+  padding: 2rem 3rem;
+}
+

@@ -3,6 +3,7 @@ import Layout from "./layout/layout";
 import Catalog from "./pages/catalog/catalog";
 import ProductPage from "./pages/Product/product";
 import Cart from "./pages/cart/cart";
+import CheckoutPage from "./pages/checkout/checkout";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path=":category/:productId" element={<ProductPage />} />
         <Route path="cart" element={<Cart/>} />
       </Route>
+      <Route path="checkout" element={<CheckoutPage/>} />
     </Routes>
   );
 }
