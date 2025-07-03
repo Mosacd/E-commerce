@@ -61,7 +61,7 @@ const changeSize = (id, currentSize, newSize) => {
 
     const targetItem = prevCart[itemIndex];
 
-    // Check if same item with new size already exists
+    // Checking if same item with new size already exists
     const existingSameItem = prevCart.find(
       (item) => item.id === id && item.size === newSize
     );

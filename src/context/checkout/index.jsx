@@ -10,7 +10,7 @@ export const CheckoutProvider = ({ children }) => {
   const [shippingAddress, setShippingAddress] = useState(null);
   const [orderNumber, setOrderNumber] = useState(null); // For storing order confirmation
   
-  // Generate a random order number (in a real app, this would come from your backend)
+  //I'm generate a random order number for order number
   const generateOrderNumber = () => {
     return `#${Math.floor(1000 + Math.random() * 9000)}`;
   };
@@ -23,7 +23,6 @@ export const CheckoutProvider = ({ children }) => {
     setOrderNumber(null);
   };
 
-  // Finalize the order (call this after successful payment)
   const completeOrder = () => {
     setOrderNumber(generateOrderNumber());
   };
