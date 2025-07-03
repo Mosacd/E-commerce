@@ -156,8 +156,9 @@ option{
 .nextButton:hover {
   background-color: #15803d;
 }
+
 .error {
   color: #dc2626;
   font-size: 0.675rem;
-  margin-bottom: 2px;
+  margin-bottom: 5px;
 }

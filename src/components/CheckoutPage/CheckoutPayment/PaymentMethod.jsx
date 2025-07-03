@@ -101,6 +101,7 @@ const PaymentMethod = () => {
           <div className={styles.cardForm}>
             <div className={styles.iconInput}>
               <input
+                required
                 type="text"
                 placeholder="Card Number"
                 className={`${styles.input} ${
@@ -116,6 +117,7 @@ const PaymentMethod = () => {
             )}
 
             <input
+              required
               type="text"
               placeholder="Holder Name"
               className={`${styles.input} ${
@@ -130,6 +132,7 @@ const PaymentMethod = () => {
 
             <div className={styles.row2}>
               <input
+                required
                 type="text"
                 placeholder="Expiration (MM/YY)"
                 className={`${styles.input} ${
@@ -140,6 +143,7 @@ const PaymentMethod = () => {
               />
               <div className={styles.iconInput}>
                 <input
+                  required
                   type="text"
                   placeholder="CVV"
                   className={`${styles.input} ${

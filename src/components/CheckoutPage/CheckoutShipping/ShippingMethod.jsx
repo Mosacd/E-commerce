@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './ShippingMethod.module.css';
 import { useCheckout } from '../../../context/checkout';
 import { useCurrencyContext } from '../../../context/currency/hooks/useCurrencyContext';
+import { useState } from 'react';
 
 const ShippingMethod = () => {
 
@@ -14,13 +15,27 @@ const ShippingMethod = () => {
   } = useCheckout();
 
   const {convert, currency } = useCurrencyContext();
-
+const [error, setError] = useState('');
   //I'll Format shipping address here
   const formatAddress = () => {
     if (!shippingAddress) return 'Address not set';
     
     return `${shippingAddress.address}, ${shippingAddress.postalCode}, ${shippingAddress.city}, ${shippingAddress.province}, ${shippingAddress.country}`;
   };
+
+  const handleNext = () => {
+  if (!shippingMethod) {
+    setError('Please select a shipping method');
+  } else {
+    setError('');
+    navigate('/checkout/payment');
+  }
+};
+
+const handleSelect = (method) => {
+  setShippingMethod(method);
+  if (error) setError('');
+};
 
   return (
     <div className={styles.container}>
@@ -38,7 +53,7 @@ const ShippingMethod = () => {
 
       <div className={styles.methodBox}>
         <h2 className={styles.heading}>Shipping Method</h2>
-
+  
         <label className={styles.option}>
           <div style={{gap:"20px", display:"flex"}}>
             <input
@@ -46,7 +61,7 @@ const ShippingMethod = () => {
               name="shipping"
               value="standard"
               checked={shippingMethod === 'standard'}
-              onChange={(e) => setShippingMethod('standard')}
+               onChange={() => handleSelect('standard')}
             />
             <span>Standard Shipping</span>
           </div>
@@ -60,13 +75,13 @@ const ShippingMethod = () => {
               name="shipping"
               value="express"
               checked={shippingMethod === 'express'}
-              onChange={(e) => setShippingMethod('express')}
+               onChange={() => handleSelect('express')}
             />
             <span>Express Shipping</span>
           </div>
           <span className={styles.price}>{currency=== "USD" ? "$" : currency === "EUR" ? "€" : "¥" }{convert(4.99).toFixed(2)}</span>
         </label>
-
+{error && <div className={styles.error}>{error}</div>}
         <div className={styles.navRow}>
           <button 
             onClick={() => navigate('/checkout/details')} 
@@ -75,7 +90,7 @@ const ShippingMethod = () => {
             Back to details
           </button>
           <button 
-            onClick={() => navigate('/checkout/payment')} 
+            onClick={handleNext}
             className={styles.nextButton}
           >
             Go to payment
