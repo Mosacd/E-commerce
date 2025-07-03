@@ -1,0 +1,79 @@
+.summaryCard {
+  margin-top: 93px;
+}
+
+.item {
+  display: flex;
+  height: 136px;
+  width: 476px;
+  gap: 1rem;
+}
+
+.imageWrapper {
+  position: relative;
+  background-color: white;
+  width: 164px;
+  height: 130px;
+}
+
+.image {
+  width: 113px;
+  height: 103px;
+  object-fit: cover;
+}
+
+.quantityBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  background-color: #16a34a;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 400;
+  margin-left: 61px;
+}
+
+.price {
+  color: #56B280;
+  font-weight: 600;
+  margin-left: 61px;
+  font-size: 21px;
+}
+
+.breakdown {
+  width: 425px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 5px;
+  margin-top: 6px;
+  font-size: 14px;
+  color: #616161;
+  font-weight: 500;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.total {
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #616161;
+  padding-top: 5px;
+}
