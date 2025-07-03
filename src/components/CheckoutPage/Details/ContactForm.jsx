@@ -8,6 +8,7 @@ const ContactForm = () => {
         type="text"
         placeholder="Email or mobile phone number"
         className={styles.input}
+        style={{borderColor:"#56B2s80"}}
       />
     </div>
   );

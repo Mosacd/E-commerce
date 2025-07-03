@@ -31,7 +31,7 @@ const CartSummary = ({ currentStep }) => {
         </div>
         <div className={styles.total}>
         <span>Total</span>
-        <span style={{ fontSize: '24px', fontWeight: "500" }}>$50.00</span>
+        <span style={{ fontSize: '24px', fontWeight: "500", color:"#272727" }}>$50.00</span>
       </div>
       </div>
 

@@ -1,12 +1,13 @@
 import ShippingLayout from "../LayoutCheckout/LayoutCheckout";
 import styles from "./PaymentConfirmation.module.css";
+import { ReactComponent as CheckIcon } from '../../../assets/CheckCircle.svg';
 
 const PaymentConfirmation = () => {
   return (
     <ShippingLayout currentStep="confirmation">
       <div className={styles.confirmationBox}>
         <div className={styles.iconCircle}>
-          <span className={styles.checkmark}>✓</span>
+          <CheckIcon className={styles.checkmark} />
         </div>
 
         <h2 className={styles.title}>Payment Confirmed</h2>
