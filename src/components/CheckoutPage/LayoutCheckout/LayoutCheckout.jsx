@@ -11,7 +11,9 @@ const LayoutCheckout = ({ children, currentStep }) => {
             {children}
           </div>
         </div>
-        <div className={styles.rightColumn}>
+        <div
+          className={`${styles.rightColumn} ${currentStep === "details" ? styles.transparentRight : ""}`}
+        >
           <CartSummary currentStep={currentStep} />
         </div>
       </div>

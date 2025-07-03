@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  max-width: 500px;
+  width: 445px;
 }
 
 .contain {
@@ -37,6 +37,7 @@
 .formBox {
   background: #fff;
   border-radius: 0.5rem;
+  width: 445px;
 }
 
 .heading {
@@ -57,14 +58,6 @@
   align-items: center;
   padding: 1rem;
   gap: 10px;
-}
-
-.cardIcon {
-  width: 24px;
-  height: 16px;
-  background-color: #56b280;
-  border-radius: 3px;
-  position: relative;
 }
 
 .cardIcon::before {
@@ -91,11 +84,16 @@
   padding: 1rem;
 }
 
+.free{
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 300;
+
+}
+
 .input {
   width: 100%;
   padding: 0.75rem 1rem;
   border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
   font-size: 1rem;
   transition: border-color 0.2s;
 }
@@ -161,4 +159,14 @@
 
 .nextButton:hover {
   background-color: #15803d;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.invalid {
+  border-color: #dc2626 !important;
 }

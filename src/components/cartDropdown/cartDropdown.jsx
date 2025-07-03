@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react';
 import styles from './cartDropdown.module.css';
-
+import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { useCartContext } from '../../context/cart/hooks/useCartContext';
 
 const CartDropdown = ({ isOpen, setIsOpen }) => {
+    const navigate = useNavigate();
   
          const { cart, changeQuantity, changeSize } = useCartContext();
 
@@ -111,11 +112,21 @@ const CartDropdown = ({ isOpen, setIsOpen }) => {
                 </div>
                 
                 <div className={styles.actions}>
-                   <Link onClick={() => setIsOpen(!isOpen)} className={styles.bagLink} to={"/cart"}> <button className={styles.viewBagBtn}>VIEW BAG</button></Link>
-                    <Link onClick={() => setIsOpen(!isOpen)} className={styles.checkoutLink} to={"/"}>
-                    <button className={styles.checkoutBtn}>CHECK OUT</button>
+                    <Link onClick={() => setIsOpen(false)} className={styles.bagLink} to="/cart">
+                        <button className={styles.viewBagBtn}>VIEW BAG</button>
                     </Link>
+
+                    <button
+                        className={styles.checkoutBtn}
+                        onClick={() => {
+                        setIsOpen(false);
+                        navigate("/checkout");
+                        }}
+                    >
+                        CHECK OUT
+                    </button>
                 </div>
+
             </div>
         </div>
             )}

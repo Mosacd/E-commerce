@@ -14,7 +14,7 @@ function App() {
         <Route path=":category/:productId" element={<ProductPage />} />
         <Route path="cart" element={<Cart/>} />
       </Route>
-      <Route path="checkout" element={<CheckoutPage/>} />
+      <Route path="/checkout" element={<CheckoutPage/>} />
     </Routes>
   );
 }
