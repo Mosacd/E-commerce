@@ -15,7 +15,7 @@
 .input {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid #898989;
   font-size: 1rem;
   outline: none;
   transition: border-color 0.2s;
@@ -32,7 +32,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  border: 1px solid #d1d5db;
+  border: 1px solid #898989;
   background-color: white;
   height: 40px;
   padding: 0 9px;
@@ -51,11 +51,12 @@
   border: none;
   background: transparent;
   font-size: 1rem;
-  color: #111827; 
+  color: #272727; 
   flex: 1;
   appearance: none;
   font-weight: 500;
   padding-top: 1rem; 
+  padding-bottom: 0.1rem;
   box-sizing: border-box; 
   width: 100%;
   border: 0;
