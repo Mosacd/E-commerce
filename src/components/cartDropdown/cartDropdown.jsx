@@ -119,7 +119,8 @@ const { currency, convert } = useCurrencyContext();
                     </Link>
 
                     <button
-                        className={styles.checkoutBtn}
+                        disabled={cart.length === 0}
+                        className={`${styles.checkoutBtn} ${cart.length === 0 && styles.disabledButton}`}
                         onClick={() => {
                         setIsOpen(false);
                         navigate("/checkout");

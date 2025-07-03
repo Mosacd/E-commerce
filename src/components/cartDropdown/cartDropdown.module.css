@@ -293,3 +293,8 @@ vertical-align: middle;
 .displaynone{
     display: none;
 }
+
+.disabledButton{
+    opacity: 50%;
+    pointer-events: none;
+}

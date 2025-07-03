@@ -300,3 +300,8 @@ text-transform: uppercase;
 .checkoutBtn:hover {
     background: #45a049;
 }
+
+.disabledButton{
+    opacity: 50%;
+    pointer-events: none;
+}
