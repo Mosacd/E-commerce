@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import ShippingLayout from '../LayoutCheckout/LayoutCheckout';
 import ContactForm from './ContactForm';
 import ShippingForm from './ShippingForm';
+import { useCheckout } from "../../../context/checkout";
+import { useState } from "react";
 
-const CheckoutDetails = ({ onNext }) => {
-  const [contact, setContact] = useState('');
+const CheckoutDetails = () => {
+  const navigate = useNavigate();
+  const { contact, setContact } = useCheckout();
   const [contactError, setContactError] = useState('');
 
   const validateContact = (value) => {
@@ -18,18 +21,30 @@ const CheckoutDetails = ({ onNext }) => {
     return "";
   };
 
+  const handleShippingSubmit = () => {
+    const contactErrorMsg = validateContact(contact);
+    
+    if (contactErrorMsg) {
+      setContactError(contactErrorMsg);
+    } else {
+      setContactError('');
+      navigate('/checkout/shipping');
+    }
+  };
+
   return (
-    <ShippingLayout currentStep="details">
+    <ShippingLayout>
       <ContactForm
         contact={contact}
-        setContact={setContact}
+        setContact={(value) => {
+          setContact(value);
+          if (contactError) setContactError('');
+        }}
         error={contactError}
       />
       <ShippingForm
-        contact={contact}
-        validateContact={validateContact}
-        setContactError={setContactError}
-        onNext={onNext}
+        onSubmit={handleShippingSubmit}
+        onBack={() => navigate("/cart")}
       />
     </ShippingLayout>
   );

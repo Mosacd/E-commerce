@@ -1,5 +1,4 @@
-// import { useState } from "react";
-import styles from './Details.module.css';
+import styles from "./Details.module.css";
 
 const ContactForm = ({ contact, setContact, error }) => {
   return (
@@ -18,4 +17,3 @@ const ContactForm = ({ contact, setContact, error }) => {
 };
 
 export default ContactForm;
-

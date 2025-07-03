@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { CartProvider } from './context/cart';
 import { CurrencyProvider } from './context/currency';
+import { CheckoutProvider } from './context/checkout';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +14,9 @@ root.render(
     <BrowserRouter>
      <CurrencyProvider>
     <CartProvider>
+       <CheckoutProvider>
     <App />
+    </CheckoutProvider>
     </CartProvider>
     </CurrencyProvider>
     </BrowserRouter>

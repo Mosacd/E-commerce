@@ -1,63 +1,58 @@
-import styles from './Details.module.css';
-import { useState } from 'react';
-import { useNavigate } from "react-router-dom"; 
+import { useState } from "react";
+import styles from "./Details.module.css";
+import { useCheckout } from "../../../context/checkout";
 
-const ShippingForm = ({ onNext, contact, validateContact, setContactError }) => {
+const ShippingForm = ({ onSubmit, onBack }) => {
   const [form, setForm] = useState({
-    name: '',
-    secondName: '',
-    address: '',
-    note: '',
-    city: '',
-    postalCode: '',
-    province: '',
-    country: '',
+    name: "",
+    secondName: "",
+    address: "",
+    note: "",
+    city: "",
+    postalCode: "",
+    province: "",
+    country: "",
     saveInfo: false,
   });
 
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
+  const { setShippingAddress } = useCheckout();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setForm((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const validate = () => {
     const newErrors = {};
-    if (!form.name.trim()) newErrors.name = 'Required';
-    if (!form.secondName.trim()) newErrors.secondName = 'Required';
-    if (!form.address.trim()) newErrors.address = 'Required';
-    if (!form.city.trim()) newErrors.city = 'Required';
-    if (!form.postalCode.trim()) newErrors.postalCode = 'Required';
-    if (!form.province) newErrors.province = 'Required';
-    if (!form.country) newErrors.country = 'Required';
+    if (!form.name.trim()) newErrors.name = "Required";
+    if (!form.secondName.trim()) newErrors.secondName = "Required";
+    if (!form.address.trim()) newErrors.address = "Required";
+    if (!form.city.trim()) newErrors.city = "Required";
+    if (!form.postalCode.trim()) newErrors.postalCode = "Required";
+    if (!form.province) newErrors.province = "Required";
+    if (!form.country) newErrors.country = "Required";
     return newErrors;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const foundErrors = validate();
-    const contactError = validateContact(contact);
 
-    if (contactError) {
-      setContactError(contactError);
-    } else {
-      setContactError('');
-    }
-
-    if (Object.keys(foundErrors).length > 0 || contactError) {
+    if (Object.keys(foundErrors).length > 0) {
       setErrors(foundErrors);
     } else {
       setErrors({});
-      onNext();
+      setShippingAddress(form); // Save to context
+      onSubmit(); // Notify parent to proceed
     }
   };
 
   return (
-    <div className={styles.section}>
+    <form onSubmit={handleSubmit} className={styles.section}>
       <h2 className={styles.sectionTitle}>Shipping Address</h2>
 
       <div className={styles.row2}>
@@ -82,7 +77,9 @@ const ShippingForm = ({ onNext, contact, validateContact, setContactError }) => 
             onChange={handleChange}
             className={styles.input}
           />
-          {errors.secondName && <p className={styles.error}>{errors.secondName}</p>}
+          {errors.secondName && (
+            <p className={styles.error}>{errors.secondName}</p>
+          )}
         </div>
       </div>
 
@@ -128,18 +125,24 @@ const ShippingForm = ({ onNext, contact, validateContact, setContactError }) => 
             onChange={handleChange}
             className={styles.input}
           />
-          {errors.postalCode && <p className={styles.error}>{errors.postalCode}</p>}
+          {errors.postalCode && (
+            <p className={styles.error}>{errors.postalCode}</p>
+          )}
         </div>
 
         <div className={styles.selectWrapper}>
-          <label htmlFor="province" className={styles.label}>Province</label>
+          <label htmlFor="province" className={styles.label}>
+            Province
+          </label>
           <select
             name="province"
             value={form.province}
             onChange={handleChange}
             className={styles.select}
           >
-            <option value="" disabled hidden>Province</option>
+            <option value="" disabled hidden>
+              Province
+            </option>
             <option value="milano">Milano</option>
             <option value="roma">Roma</option>
             <option value="napoli">Napoli</option>
@@ -150,14 +153,18 @@ const ShippingForm = ({ onNext, contact, validateContact, setContactError }) => 
       </div>
 
       <div className={styles.selectWrapper}>
-        <label htmlFor="country" className={styles.label}>Country/Region</label>
+        <label htmlFor="country" className={styles.label}>
+          Country/Region
+        </label>
         <select
           name="country"
           value={form.country}
           onChange={handleChange}
           className={styles.select}
         >
-          <option value="" disabled hidden>Country/Region</option>
+          <option value="" disabled hidden>
+            Country/Region
+          </option>
           <option value="italy">Italy</option>
           <option value="france">France</option>
           <option value="germany">Germany</option>
@@ -178,20 +185,14 @@ const ShippingForm = ({ onNext, contact, validateContact, setContactError }) => 
       </label>
 
       <div className={styles.buttonRow}>
-        <button
-          className={styles.backButton}
-          onClick={() => navigate("/cart")}
-        >
+        <button type="button" className={styles.backButton} onClick={onBack}>
           Back to cart
         </button>
-        <button
-          className={styles.nextButton}
-          onClick={handleSubmit}
-        >
+        <button type="submit" className={styles.nextButton}>
           Go to shipping
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 

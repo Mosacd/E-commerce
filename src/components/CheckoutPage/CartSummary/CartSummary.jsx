@@ -1,13 +1,19 @@
 import styles from './CartSummary.module.css';
 import { useCartContext } from '../../../context/cart/hooks/useCartContext';
 import { useCurrencyContext } from '../../../context/currency/hooks/useCurrencyContext';
-
+import { useCheckout } from '../../../context/checkout';
 
 const CartSummary = ({ currentStep }) => {
   const {cart} = useCartContext()
   const {convert, currency} = useCurrencyContext()
+  const { shippingMethod } = useCheckout();
 
-  const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+  // Calculate shipping cost
+  const shippingCost = shippingMethod === 'express' ? 4.99 : 0;
+  const total = subtotal + shippingCost;
+
     
   const showFreeShipping = currentStep === 'payment';
 
@@ -17,7 +23,7 @@ const CartSummary = ({ currentStep }) => {
     {cart.map(item => {
       return(
       
-      <div className={styles.item}>
+      <div className={styles.item} key={`${item.id}-${item.size}`}>
         <div className={styles.imageWrapper}>
           <img
             src={item.img[0]}
@@ -42,11 +48,18 @@ const CartSummary = ({ currentStep }) => {
        <div className={styles.breakdown}>
         <div className={styles.row}>
           <span>Subtotal</span>
-          <span style={{color: "#272727"}}>{currency=== "USD" ? "$" : currency === "EUR" ? "€" : "¥" }{convert(total).toFixed(2)}</span>
+          <span style={{color: "#272727"}}>{currency=== "USD" ? "$" : currency === "EUR" ? "€" : "¥" }{convert(subtotal).toFixed(2)}</span>
         </div>
-        <div className={styles.row}>
+       <div className={styles.row}>
           <span>Shipping</span>
-          <span>{showFreeShipping ? 'Free Shipping' : 'Calculated at the next step'}</span>
+          <span>
+            {currentStep === 'details' 
+              ? 'Calculated at next step'
+              : shippingMethod === 'standard' 
+                ? 'Free Shipping' 
+                : `${currency=== "USD" ? "$" : currency === "EUR" ? "€" : "¥" }${convert(shippingCost).toFixed(2)}`
+            }
+          </span>
         </div>
         <div className={styles.total}>
         <span>Total</span>

@@ -1,23 +1,37 @@
-import styles from './PaymentMethod.module.css';
-import { ReactComponent as Lock } from '../../../assets/LockFill.svg';
-import { ReactComponent as CreditCard } from '../../../assets/CreditCardFill.svg';
-import { ReactComponent as InfoSquare } from '../../../assets/InfoSquareFill.svg';
+import styles from "./PaymentMethod.module.css";
+import { ReactComponent as Lock } from "../../../assets/LockFill.svg";
+import { ReactComponent as CreditCard } from "../../../assets/CreditCardFill.svg";
+import { ReactComponent as InfoSquare } from "../../../assets/InfoSquareFill.svg";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useCheckout } from "../../../context/checkout";
+import { useCurrencyContext } from "../../../context/currency/hooks/useCurrencyContext";
 
-const PaymentMethod = ({ onBack, onNext }) => {
+const PaymentMethod = () => {
+  const navigate = useNavigate();
+
+  const { contact, shippingAddress, shippingMethod, completeOrder } =
+    useCheckout();
+     const {convert, currency } = useCurrencyContext();
+
   const [cardNumber, setCardNumber] = useState("");
   const [holderName, setHolderName] = useState("");
   const [expiration, setExpiration] = useState("");
   const [cvv, setCvv] = useState("");
-
   const [errors, setErrors] = useState({});
+
+  //again I'm formating shipping address here
+  const formatAddress = () => {
+    if (!shippingAddress) return "Address not set";
+    return `${shippingAddress.address}, ${shippingAddress.city}, ${shippingAddress.province}, ${shippingAddress.country}`;
+  };
 
   const validateForm = () => {
     const newErrors = {};
 
     if (!cardNumber.trim()) {
       newErrors.cardNumber = "Card number is required";
-    } else if (!/^\d{16}$/.test(cardNumber.replace(/\s+/g, ''))) {
+    } else if (!/^\d{16}$/.test(cardNumber.replace(/\s+/g, ""))) {
       newErrors.cardNumber = "Must be 16 digits";
     }
 
@@ -43,7 +57,8 @@ const PaymentMethod = ({ onBack, onNext }) => {
 
   const handleSubmit = () => {
     if (validateForm()) {
-      onNext();
+      completeOrder(); // I'm generating a random number for order number
+      navigate("/checkout/confirmation");
     }
   };
 
@@ -52,18 +67,25 @@ const PaymentMethod = ({ onBack, onNext }) => {
       <div className={styles.contain}>
         <div className={styles.infoBox}>
           <span className={styles.label}>Contact:</span>
-          <span className={styles.value}>joe.spagnuolo@uobly.com</span>
+          <span className={styles.value}>{contact}</span>
         </div>
-        <div className={styles.infoBox} style={{ borderTop: "1px solid #56B28033" }}>
+        <div
+          className={styles.infoBox}
+          style={{ borderTop: "1px solid #56B28033" }}
+        >
           <span className={styles.label}>Ship to:</span>
-          <span className={styles.value}>Via Firenze 23, Campobello di Licata AG</span>
+          <span className={styles.value}>{formatAddress()}</span>
         </div>
-        <div className={styles.infoBox} style={{ borderTop: "1px solid #56B28033" }}>
+        <div
+          className={styles.infoBox}
+          style={{ borderTop: "1px solid #56B28033" }}
+        >
           <span className={styles.label}>Shipping Method:</span>
           <span className={styles.value}>
-            Standard Shipping – <span className={styles.free}>Free</span>
+            {shippingMethod === "standard"
+              ? "Standard Shipping – Free"
+              : `Express Shipping – ${currency=== "USD" ? "$" : currency === "EUR" ? "€" : "¥" }${convert(4.99).toFixed(2)}`}
           </span>
-
         </div>
       </div>
 
@@ -72,7 +94,7 @@ const PaymentMethod = ({ onBack, onNext }) => {
 
         <div className={styles.cardSection}>
           <div className={styles.cardHeader}>
-            <CreditCard/>
+            <CreditCard />
             <span className={styles.cardText}>Credit Card</span>
           </div>
 
@@ -81,29 +103,38 @@ const PaymentMethod = ({ onBack, onNext }) => {
               <input
                 type="text"
                 placeholder="Card Number"
-                className={`${styles.input} ${errors.cardNumber ? styles.invalid : ""}`}
+                className={`${styles.input} ${
+                  errors.cardNumber ? styles.invalid : ""
+                }`}
                 value={cardNumber}
                 onChange={(e) => setCardNumber(e.target.value)}
               />
               <Lock className={styles.iconLock} />
             </div>
-            {errors.cardNumber && <div className={styles.error}>{errors.cardNumber}</div>}
+            {errors.cardNumber && (
+              <div className={styles.error}>{errors.cardNumber}</div>
+            )}
 
             <input
               type="text"
               placeholder="Holder Name"
-              className={`${styles.input} ${errors.holderName ? styles.invalid : ""}`}
+              className={`${styles.input} ${
+                errors.holderName ? styles.invalid : ""
+              }`}
               value={holderName}
               onChange={(e) => setHolderName(e.target.value)}
             />
-            {errors.holderName && <div className={styles.error}>{errors.holderName}</div>}
-
+            {errors.holderName && (
+              <div className={styles.error}>{errors.holderName}</div>
+            )}
 
             <div className={styles.row2}>
               <input
                 type="text"
                 placeholder="Expiration (MM/YY)"
-                className={`${styles.input} ${errors.expiration ? styles.invalid : ""}`}
+                className={`${styles.input} ${
+                  errors.expiration ? styles.invalid : ""
+                }`}
                 value={expiration}
                 onChange={(e) => setExpiration(e.target.value)}
               />
@@ -111,21 +142,32 @@ const PaymentMethod = ({ onBack, onNext }) => {
                 <input
                   type="text"
                   placeholder="CVV"
-                  className={`${styles.input} ${errors.cvv ? styles.invalid : ""}`}
+                  className={`${styles.input} ${
+                    errors.cvv ? styles.invalid : ""
+                  }`}
                   value={cvv}
                   onChange={(e) => setCvv(e.target.value)}
                 />
-                <InfoSquare className={styles.iconInfo}/>
+                <InfoSquare className={styles.iconInfo} />
               </div>
             </div>
-            {errors.expiration && <div className={styles.error}>{errors.expiration}</div>}
+            {errors.expiration && (
+              <div className={styles.error}>{errors.expiration}</div>
+            )}
             {errors.cvv && <div className={styles.error}>{errors.cvv}</div>}
           </div>
         </div>
 
         <div className={styles.navRow}>
-          <button onClick={onBack} className={styles.backButton}>Back to shipping</button>
-          <button onClick={handleSubmit} className={styles.nextButton}>Pay now</button>
+          <button
+            onClick={() => navigate("/checkout/shipping")}
+            className={styles.backButton}
+          >
+            Back to shipping
+          </button>
+          <button onClick={handleSubmit} className={styles.nextButton}>
+            Pay now
+          </button>
         </div>
       </div>
     </div>
