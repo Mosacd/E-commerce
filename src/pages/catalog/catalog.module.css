@@ -30,7 +30,7 @@
   flex-direction: column;
   justify-content: space-between;
   transition: all 200ms ease;
-   border-radius: 5px;
+  border-radius: 5px;
 }
 
 .img{

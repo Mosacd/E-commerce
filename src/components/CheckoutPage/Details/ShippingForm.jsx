@@ -2,8 +2,8 @@ import styles from './Details.module.css';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom"; 
 
-const ShippingForm = ({ onNext }) => {
-    const [form, setForm] = useState({
+const ShippingForm = ({ onNext, contact, validateContact, setContactError }) => {
+  const [form, setForm] = useState({
     name: '',
     secondName: '',
     address: '',
@@ -40,13 +40,22 @@ const ShippingForm = ({ onNext }) => {
 
   const handleSubmit = () => {
     const foundErrors = validate();
-    if (Object.keys(foundErrors).length > 0) {
+    const contactError = validateContact(contact);
+
+    if (contactError) {
+      setContactError(contactError);
+    } else {
+      setContactError('');
+    }
+
+    if (Object.keys(foundErrors).length > 0 || contactError) {
       setErrors(foundErrors);
     } else {
       setErrors({});
       onNext();
     }
   };
+
   return (
     <div className={styles.section}>
       <h2 className={styles.sectionTitle}>Shipping Address</h2>
@@ -77,7 +86,7 @@ const ShippingForm = ({ onNext }) => {
         </div>
       </div>
 
-       <div>
+      <div>
         <input
           type="text"
           name="address"
@@ -88,6 +97,7 @@ const ShippingForm = ({ onNext }) => {
         />
         {errors.address && <p className={styles.error}>{errors.address}</p>}
       </div>
+
       <input
         type="text"
         name="note"
@@ -137,28 +147,24 @@ const ShippingForm = ({ onNext }) => {
           </select>
           {errors.province && <p className={styles.error}>{errors.province}</p>}
         </div>
-
       </div>
 
-
       <div className={styles.selectWrapper}>
-          <label htmlFor="province" className={styles.label}>Country/Region</label>
-          <select
-            name="country"
-            value={form.country}
-            onChange={handleChange}
-            className={styles.select}
-          >
-            <option value="" disabled hidden>Country/Region</option>
-            <option value="italy">Italy</option>
-            <option value="france">France</option>
-            <option value="germany">Germany</option>
-            <option value="spain">Spain</option>
-          </select>
-          {errors.country && <p className={styles.error}>{errors.country}</p>}
-        </div>
-
-      
+        <label htmlFor="country" className={styles.label}>Country/Region</label>
+        <select
+          name="country"
+          value={form.country}
+          onChange={handleChange}
+          className={styles.select}
+        >
+          <option value="" disabled hidden>Country/Region</option>
+          <option value="italy">Italy</option>
+          <option value="france">France</option>
+          <option value="germany">Germany</option>
+          <option value="spain">Spain</option>
+        </select>
+        {errors.country && <p className={styles.error}>{errors.country}</p>}
+      </div>
 
       <label className={styles.checkboxRow}>
         <input
@@ -172,8 +178,16 @@ const ShippingForm = ({ onNext }) => {
       </label>
 
       <div className={styles.buttonRow}>
-        <button className={styles.backButton} onClick={() => navigate("/cart")} >Back to cart</button>
-        <button className={styles.nextButton} onClick={handleSubmit}>
+        <button
+          className={styles.backButton}
+          onClick={() => navigate("/cart")}
+        >
+          Back to cart
+        </button>
+        <button
+          className={styles.nextButton}
+          onClick={handleSubmit}
+        >
           Go to shipping
         </button>
       </div>
