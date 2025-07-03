@@ -75,7 +75,7 @@ const Catalog = () => {
                 <span className={style.stockMessege}> OUT OF STOCK</span>
               </div>
               <div className={style.descriptionContainer}>
-                <span className={style.description}>Apollo Running Short</span>
+                <span className={style.description}>{item.name}</span>
                 <span className={style.price}>{currency=== "USD" ? "$" : currency === "EUR" ? "€" : "¥" }{convert(item.price).toFixed(2)}</span>
               </div>
             </div>
