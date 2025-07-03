@@ -1,4 +1,3 @@
-// App.js
 import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./layout/layout";
 import Catalog from "./pages/catalog/catalog";
