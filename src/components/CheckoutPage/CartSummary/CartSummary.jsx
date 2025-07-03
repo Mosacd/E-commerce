@@ -15,7 +15,7 @@ const CartSummary = ({ currentStep }) => {
   const total = subtotal + shippingCost;
 
     
-  const showFreeShipping = currentStep === 'payment';
+  // const showFreeShipping = currentStep === 'payment';
 
   return (
      <div className={styles.summaryCard}>
@@ -52,7 +52,7 @@ const CartSummary = ({ currentStep }) => {
         </div>
        <div className={styles.row}>
           <span>Shipping</span>
-          <span>
+          <span className={currentStep !== 'details' && styles.shipping}>
             {currentStep === 'details' 
               ? 'Calculated at next step'
               : shippingMethod === 'standard' 

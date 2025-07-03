@@ -71,7 +71,7 @@
   border-top: 1px solid #e5e7eb;
   padding-top: 5px;
   margin-top: 20px;
-  /* font-family: Roboto; */
+font-family: Roboto;
 font-weight: 500;
 font-size: 14px;
 line-height: 25.6px;
@@ -79,6 +79,10 @@ letter-spacing: -0.9px;
 /* vertical-align: bottom; */
 color: #616161;
 
+}
+
+.shipping{
+  color: #1D1F22;
 }
 
 .row {
