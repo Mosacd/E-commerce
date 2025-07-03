@@ -5,14 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { CartProvider } from './context/cart';
+import { CurrencyProvider } from './context/currency';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+     <CurrencyProvider>
     <CartProvider>
     <App />
     </CartProvider>
+    </CurrencyProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

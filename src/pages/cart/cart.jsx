@@ -1,5 +1,5 @@
 import styles from "./cart.module.css"
-import { useState } from "react";
+import { useCurrencyContext } from "../../context/currency/hooks/useCurrencyContext";
 import { Link } from "react-router-dom";
 import { useCartContext } from "../../context/cart/hooks/useCartContext";
 
@@ -9,7 +9,7 @@ const Cart = () => {
      const { cart, changeQuantity, changeSize  } = useCartContext();
 
 
-      const [ItemSize, setItemSize] = useState();
+       const { currency, convert } = useCurrencyContext();
 
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -34,7 +34,7 @@ const Cart = () => {
           <h1 className={styles.itemType}>
             {item.name.split(" ")[1]} {item.name.split(" ")[2]}
           </h1>
-                            <div className={styles.itemPrice}>${Number(item.price).toFixed(2)}</div>
+                            <div className={styles.itemPrice}>{currency=== "USD" ? "$" : currency === "EUR" ? "€" : "¥" }{convert(Number(item.price)).toFixed(2)}</div>
                             
                             <div className={styles.sizeSection}>
                                 <h4 className={styles.sizeText}>SIZE:</h4>
@@ -88,7 +88,10 @@ const Cart = () => {
                  </div>
                 <div className={styles.total}>
                     <span className={styles.totalLabel}>Total:</span>
-                    <span className={styles.totalAmount}>${total.toFixed(2)}</span>
+                    <span className={styles.totalAmount}>
+                        {currency=== "USD" ? "$" : currency === "EUR" ? "€" : "¥" }
+                        
+                        {convert(total).toFixed(2)}</span>
                 </div>
                 
              

@@ -1,12 +1,13 @@
 import { useEffect, useRef } from 'react';
 import styles from './cartDropdown.module.css';
-
 import { Link } from 'react-router-dom';
 import { useCartContext } from '../../context/cart/hooks/useCartContext';
+import { useCurrencyContext } from '../../context/currency/hooks/useCurrencyContext';
 
 const CartDropdown = ({ isOpen, setIsOpen }) => {
   
          const { cart, changeQuantity, changeSize } = useCartContext();
+const { currency, convert } = useCurrencyContext();
 
     const dropdownRef = useRef(null);
 
@@ -58,7 +59,7 @@ const CartDropdown = ({ isOpen, setIsOpen }) => {
                     <div key={`${item.id}-${item.size}`} className={styles.cartItem}>
                         <div className={styles.itemDetails}>
                             <h4 className={styles.itemName}>{item.name}</h4>
-                            <div className={styles.itemPrice}>${Number(item.price).toFixed(2)}</div>
+                            <div className={styles.itemPrice}>{currency=== "USD" ? "$" : currency === "EUR" ? "€" : "¥" }{convert(Number(item.price)).toFixed(2)}</div>
                             
                             <div className={styles.sizeSection}>
                                 <span className={styles.sizeLabel}>Size:</span>
@@ -107,7 +108,7 @@ const CartDropdown = ({ isOpen, setIsOpen }) => {
             <div className={styles.footer}>
                 <div className={styles.total}>
                     <span className={styles.totalLabel}>Total</span>
-                    <span className={styles.totalAmount}>${total.toFixed(2)}</span>
+                    <span className={styles.totalAmount}>{currency=== "USD" ? "$" : currency === "EUR" ? "€" : "¥" }{convert(total).toFixed(2)}</span>
                 </div>
                 
                 <div className={styles.actions}>

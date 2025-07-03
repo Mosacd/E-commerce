@@ -8,7 +8,7 @@ export const CartProvider= ({
 }) => {
 
  const [cart, setCart] = useState([]);
-
+ const [currency, setCurrency] = useState("$ USD")
 
 
  const addToCart = (item) => {
@@ -100,7 +100,7 @@ const removeFromCart = (id, size) => {
   };
 
   const contextValue = useMemo(
-    () => ({ cart, addToCart, changeSize, removeFromCart, clearCart, changeQuantity }),
+    () => ({ cart, currency, setCurrency, addToCart, changeSize, removeFromCart, clearCart, changeQuantity }),
     [cart],
   );
 

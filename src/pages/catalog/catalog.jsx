@@ -2,10 +2,13 @@ import style from "./catalog.module.css";
 import { dummyData } from "../../dummyData/dummyData";
 import { Link, useParams } from "react-router-dom";
 import { useCartContext } from "../../context/cart/hooks/useCartContext";
+import { useCurrencyContext } from "../../context/currency/hooks/useCurrencyContext";
 
 const Catalog = () => {
 
     const {addToCart} = useCartContext();
+     const { currency, convert } = useCurrencyContext();
+
     let data = [];
     const { category = "kids" } = useParams();
     let categoryTitle = category.charAt(0).toUpperCase() + category.slice(1);
@@ -61,7 +64,7 @@ const Catalog = () => {
                   </svg>
                 </div>
                 <span className={style.description}>{item.name}</span>
-                <span className={style.price}>${item.price}</span>
+                <span className={style.price}>{currency=== "USD" ? "$" : currency === "EUR" ? "€" : "¥" }{convert(item.price).toFixed(2)}</span>
               </div>
             </div>
             </Link>
@@ -73,7 +76,7 @@ const Catalog = () => {
               </div>
               <div className={style.descriptionContainer}>
                 <span className={style.description}>Apollo Running Short</span>
-                <span className={style.price}>$50.00</span>
+                <span className={style.price}>{currency=== "USD" ? "$" : currency === "EUR" ? "€" : "¥" }{convert(item.price).toFixed(2)}</span>
               </div>
             </div>
           )
